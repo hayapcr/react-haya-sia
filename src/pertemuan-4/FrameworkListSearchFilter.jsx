@@ -1,6 +1,48 @@
+import { useState } from "react";
+
 import frameworkData from "./framework.json";
 
 export default function FrameworkList() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedTag, setSelectedTag] = useState("");
+
+  /*Inisialisasi DataForm*/
+  const [dataForm, setDataForm] = useState({
+    searchTerm: "",
+    selectedTag: "",
+    /*Tambah state lain beserta default value*/
+  });
+
+  /*Inisialisasi Handle perubahan nilai input form*/
+  const handleChange = (evt) => {
+    const { name, value } = evt.target;
+    setDataForm({
+      ...dataForm,
+      [name]: value,
+    });
+  };
+
+  /** Deklrasai Logic Search & Filter **/
+  const _searchTerm = dataForm.searchTerm.toLowerCase();
+  const _selectedTag = dataForm.selectedTag.toLowerCase();
+  const filteredFrameworks = frameworkData.filter((framework) => {
+    const matchesSearch =
+      framework.name.toLowerCase().includes(_searchTerm) ||
+      framework.description.toLowerCase().includes(_searchTerm) ||
+      framework.details.developer.toLowerCase().includes(_searchTerm);
+
+    const matchesTag = dataForm.selectedTag
+      ? framework.tags.includes(dataForm.selectedTag)
+      : true;
+
+    return matchesSearch && matchesTag;
+  });
+
+  /** Deklarasi pengambilan unique tags di frameworkData **/
+  const allTags = [
+    ...new Set(frameworkData.flatMap((framework) => framework.tags)),
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-slate-900 to-black p-8 text-white">
       {/* Header dengan Glow Effect */}
@@ -13,13 +55,34 @@ export default function FrameworkList() {
         <p className="text-gray-400 max-w-md mx-auto text-lg font-light">
           Koleksi framework masa depan untuk membangun aplikasi impian.
         </p>
+
+        <input
+          type="text"
+          name="searchTerm"
+          placeholder="Search framework..."
+          className="w-full p-2 border border-white-300 rounded mb-4 text-white"
+          onChange={handleChange}
+        />
+
+        <select
+          name="selectedTag"
+          className="w-full p-2 border border-white-300 rounded mb-4 text-black"
+          onChange={handleChange}
+        >
+          <option value="">All Tags</option>
+          {allTags.map((tag, index) => (
+            <option key={index} value={tag}>
+              {tag}
+            </option>
+          ))}
+        </select>
       </div>
 
       {/* Grid Layout */}
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {frameworkData.map((item, idx) => (
-          <div 
-            key={item.id} 
+        {filteredFrameworks.map((item, idx) => (
+          <div
+            key={item.id}
             className="group relative bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-8 hover:border-blue-500/50 transition-all duration-500"
           >
             {/* Background Glow saat Hover */}
@@ -27,10 +90,16 @@ export default function FrameworkList() {
 
             {/* Bagian Atas: Badge & Icon */}
             <div className="flex justify-between items-center mb-8">
-              <div className={`h-14 w-14 rounded-2xl flex items-center justify-center font-black text-2xl shadow-2xl transition-transform duration-500 group-hover:rotate-12 
-                ${idx % 3 === 0 ? 'bg-gradient-to-tr from-cyan-400 to-blue-600 shadow-cyan-500/40' : 
-                  idx % 3 === 1 ? 'bg-gradient-to-tr from-fuchsia-500 to-purple-700 shadow-fuchsia-500/40' : 
-                  'bg-gradient-to-tr from-orange-400 to-red-600 shadow-orange-500/40'}`}>
+              <div
+                className={`h-14 w-14 rounded-2xl flex items-center justify-center font-black text-2xl shadow-2xl transition-transform duration-500 group-hover:rotate-12 
+                    ${
+                      idx % 3 === 0
+                        ? "bg-gradient-to-tr from-cyan-400 to-blue-600 shadow-cyan-500/40"
+                        : idx % 3 === 1
+                          ? "bg-gradient-to-tr from-fuchsia-500 to-purple-700 shadow-fuchsia-500/40"
+                          : "bg-gradient-to-tr from-orange-400 to-red-600 shadow-orange-500/40"
+                    }`}
+              >
                 {item.name.charAt(0)}
               </div>
               <span className="px-4 py-1 rounded-full border border-white/20 text-[10px] font-bold tracking-widest bg-white/5 uppercase">
@@ -52,8 +121,12 @@ export default function FrameworkList() {
                 {item.details.developer.charAt(0)}
               </div>
               <div>
-                <p className="text-[10px] text-blue-400 uppercase font-black tracking-tighter">Powered By</p>
-                <p className="text-sm font-semibold">{item.details.developer}</p>
+                <p className="text-[10px] text-blue-400 uppercase font-black tracking-tighter">
+                  Powered By
+                </p>
+                <p className="text-sm font-semibold">
+                  {item.details.developer}
+                </p>
               </div>
             </div>
 
@@ -75,9 +148,13 @@ export default function FrameworkList() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`block w-full py-4 rounded-2xl text-center text-sm font-black tracking-widest transition-all duration-300 transform active:scale-95
-                  ${idx % 3 === 0 ? 'bg-cyan-500 hover:bg-cyan-400 text-cyan-950 shadow-lg shadow-cyan-500/30' : 
-                    idx % 3 === 1 ? 'bg-fuchsia-500 hover:bg-fuchsia-400 text-fuchsia-950 shadow-lg shadow-fuchsia-500/30' : 
-                    'bg-orange-500 hover:bg-orange-400 text-orange-950 shadow-lg shadow-orange-500/30'}`}
+                    ${
+                      idx % 3 === 0
+                        ? "bg-cyan-500 hover:bg-cyan-400 text-cyan-950 shadow-lg shadow-cyan-500/30"
+                        : idx % 3 === 1
+                          ? "bg-fuchsia-500 hover:bg-fuchsia-400 text-fuchsia-950 shadow-lg shadow-fuchsia-500/30"
+                          : "bg-orange-500 hover:bg-orange-400 text-orange-950 shadow-lg shadow-orange-500/30"
+                    }`}
               >
                 VISIT WEBSITE →
               </a>
