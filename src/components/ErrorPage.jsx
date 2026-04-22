@@ -31,19 +31,36 @@ export default function ErrorPage({ code }) {
     },
   };
 
+  // 🎨 Mapping warna (FIX Tailwind)
+  const colorClass = {
+    yellow: {
+      bg: "bg-yellow-100",
+      text: "text-yellow-500",
+    },
+    blue: {
+      bg: "bg-blue-100",
+      text: "text-blue-500",
+    },
+    red: {
+      bg: "bg-red-100",
+      text: "text-red-500",
+    },
+  };
+
   const current = config[code] || config["404"];
+  const color = colorClass[current.color];
 
   return (
     <div className="flex items-center justify-center px-6 h-[calc(80vh-80px)]">
       <div className="max-w-md w-full text-center">
 
         {/* ICON */}
-        <div className={`inline-flex items-center justify-center w-24 h-24 bg-${current.color}-100 text-${current.color}-500 rounded-full mb-8 shadow-lg`}>
+        <div className={`inline-flex items-center justify-center w-24 h-24 ${color.bg} ${color.text} rounded-full mb-8 shadow-lg`}>
           {current.icon}
         </div>
 
         {/* ERROR CODE */}
-        <p className={`text-sm font-bold uppercase tracking-[0.2em] text-${current.color}-500 mb-2`}>
+        <p className={`text-sm font-bold uppercase tracking-[0.2em] ${color.text} mb-2`}>
           ERROR {code}
         </p>
 
@@ -61,7 +78,7 @@ export default function ErrorPage({ code }) {
         <div className="flex flex-col gap-3">
           <Link
             to="/"
-            className={`bg-green-500 text-white px-6 py-3 rounded-xl font-bold shadow`}
+            className="bg-green-500 text-white px-6 py-3 rounded-xl font-bold shadow"
           >
             Kembali ke Dashboard
           </Link>
