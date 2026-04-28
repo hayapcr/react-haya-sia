@@ -1,21 +1,26 @@
 import "./assets/tailwind.css";
-import Dashboard from "./pages/Dashboard";
-import Orders from "./pages/Orders";
-import Customers from "./pages/Customers";
-import NotFound from "./pages/NotFound";
-import Error400 from "./pages/Error400";
-import Error401 from "./pages/Error401";
-import Error403 from "./pages/Error403";
 import { Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
-import MainLayout from "./layouts/MainLayout";
-import AuthLayout from "./layouts/AuthLayout";
-import Login from "./pages/auth/Login";
-import Register from "./pages/auth/Register";
-import Forgot from "./pages/auth/Forgot";
+import React from "react";
+import { Suspense } from "react";
+import Loading from "./components/Loading";
 
 function App() {
+  const Dashboard = React.lazy(() => import("./pages/Dashboard"))
+  const Orders = React.lazy(() => import("./pages/Orders"))
+  const Customers = React.lazy(() => import("./pages/Customers"))
+  const NotFound = React.lazy(() => import("./pages/NotFound"))
+  const Error400 = React.lazy(() => import("./pages/Error400"))
+  const Error401 = React.lazy(() => import("./pages/Error401"))
+  const Error403 = React.lazy(() => import("./pages/Error403"))
+  const Login = React.lazy(() => import("./pages/auth/Login"))
+  const Register = React.lazy(() => import("./pages/auth/Register"))
+  const Forgot = React.lazy(() => import("./pages/auth/Forgot"))
+  const MainLayout = React.lazy(() => import("./layouts/MainLayout"))
+  const AuthLayout = React.lazy(() => import("./layouts/AuthLayout")) 
+
   return (
+    <Suspense fallback={<Loading />}>
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<Dashboard />} />
@@ -33,6 +38,7 @@ function App() {
             <Route path="/forgot" element={<Forgot/>} />
         </Route>
     </Routes>
+    </Suspense>
   );
 }
 
