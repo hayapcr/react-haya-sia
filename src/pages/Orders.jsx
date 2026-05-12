@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PageHeader from "../components/PageHeader";
-import orders from "../data/Orders";
+import orders from "../data/Orders.json";
 
 export default function Orders() {
   const [showForm, setShowForm] = useState(false);
