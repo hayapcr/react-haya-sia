@@ -1,6 +1,7 @@
 import { MdDashboard } from "react-icons/md";
 import { FaList, FaHeadphones, FaExclamationTriangle } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import { FaBox } from "react-icons/fa";
 
 export default function Sidebar() {
   const menuClass = ({ isActive }) =>
@@ -13,7 +14,6 @@ export default function Sidebar() {
 
   return (
     <div className="flex min-h-screen w-90 flex-col bg-white p-10 shadow-lg">
-      
       {/* Logo */}
       <div className="flex flex-col">
         <span className="font-poppins text-[48px] text-gray-900">
@@ -28,7 +28,6 @@ export default function Sidebar() {
       {/* Menu */}
       <div className="mt-10">
         <ul className="space-y-3">
-
           {/* Dashboard */}
           <li>
             <NavLink to="/" className={menuClass}>
@@ -50,6 +49,14 @@ export default function Sidebar() {
             <NavLink to="/customers" className={menuClass}>
               <FaHeadphones className="mr-4 text-xl" />
               <span>Customers</span>
+            </NavLink>
+          </li>
+
+          {/* Products */}
+          <li>
+            <NavLink to="/products" className={menuClass}>
+              <FaBox className="mr-4 text-xl" />
+              <span>Products</span>
             </NavLink>
           </li>
 
@@ -81,7 +88,6 @@ export default function Sidebar() {
               <span>Error 403</span>
             </NavLink>
           </li>
-
         </ul>
       </div>
 
@@ -92,9 +98,7 @@ export default function Sidebar() {
             <span>Please organize your menus through button below!</span>
 
             <div className="flex justify-center items-center p-2 mt-3 bg-white rounded-md space-x-2">
-              <span className="text-gray-600 flex items-center">
-                Add Menus
-              </span>
+              <span className="text-gray-600 flex items-center">Add Menus</span>
             </div>
           </div>
 

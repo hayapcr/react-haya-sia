@@ -18,6 +18,9 @@ function App() {
   const Forgot = React.lazy(() => import("./pages/auth/Forgot"))
   const MainLayout = React.lazy(() => import("./layouts/MainLayout"))
   const AuthLayout = React.lazy(() => import("./layouts/AuthLayout")) 
+  const Product = React.lazy(() => import("./pages/Products"))
+  const ProductDetail = React.lazy(() => import("./pages/ProductDetail"))
+  const CustomersDetail = React.lazy(() => import("./pages/CustomersDetail"))
 
   return (
     <Suspense fallback={<Loading />}>
@@ -30,6 +33,9 @@ function App() {
         <Route path="/error-401" element={<Error401 />} />
         <Route path="/error-403" element={<Error403 />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/products" element={<Product />} />
+        <Route path="/products/:id" element={<ProductDetail />} />
+        <Route path="/customers/:id" element={<CustomersDetail />} />
       </Route>
 
       <Route element={<AuthLayout/>}>
