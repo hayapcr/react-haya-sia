@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
-import customers from "../data/customers.json";
+import Customers from "../data/Customers.json";
 
 export default function Customers() {
   const [showForm, setShowForm] = useState(false);
