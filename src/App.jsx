@@ -4,6 +4,7 @@ import { Route } from "react-router-dom";
 import React from "react";
 import { Suspense } from "react";
 import Loading from "./components/Loading";
+import Components from "./pages/Components";
 
 function App() {
   const Dashboard = React.lazy(() => import("./pages/Dashboard"))
@@ -36,6 +37,7 @@ function App() {
         <Route path="/products" element={<Product />} />
         <Route path="/products/:id" element={<ProductDetail />} />
         <Route path="/customers/:id" element={<CustomersDetail />} />
+        <Route path="/components" element={<Components />} />
       </Route>
 
       <Route element={<AuthLayout/>}>

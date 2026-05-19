@@ -2,6 +2,7 @@ export default function PageHeader({ title, breadcrumb, children }) {
     return (
         <div className="flex items-center justify-between p-4">
             <div className="flex flex-col">
+
                 {/* TITLE */}
                 <span className="text-3xl font-semibold">
                     {title}
@@ -17,7 +18,9 @@ export default function PageHeader({ title, breadcrumb, children }) {
                             </span>
                         ))
                     ) : (
-                        <span className="text-gray-500">{breadcrumb}</span>
+                        <span className="text-gray-500">
+                            {breadcrumb}
+                        </span>
                     )}
                 </div>
             </div>
