@@ -1,17 +1,78 @@
 import PageHeader from "../../components/PageHeader";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardAction,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 export default function FiturXyz() {
   const hotIssues = [
-    { id: 1, isu: "Transformasi Digital UMKM", kategori: "Ekonomi", status: "Trending" },
-    { id: 2, isu: "Pembangunan IKN Fase Lanjutan", kategori: "Infrastruktur", status: "Hot" },
-    { id: 3, isu: "Kebijakan Energi Baru Terbarukan", kategori: "Lingkungan", status: "Populer" },
-    { id: 4, isu: "Stabilitas Harga Pangan Nasional", kategori: "Ekonomi", status: "Hot" },
-    { id: 5, isu: "Pengembangan Talenta AI Lokal", kategori: "Teknologi", status: "Trending" },
-    { id: 6, isu: "Reformasi Sistem Kesehatan", kategori: "Kesehatan", status: "Populer" },
-    { id: 7, isu: "Peningkatan Kualitas Pendidikan Vokasi", kategori: "Edukasi", status: "Populer" },
-    { id: 8, isu: "Isu Keamanan Siber Nasional", kategori: "Teknologi", status: "Hot" },
-    { id: 9, isu: "Subsidi Transportasi Publik", kategori: "Transportasi", status: "Trending" },
-    { id: 10, isu: "Pelestarian Budaya di Era Digital", kategori: "Sosial", status: "Populer" },
+    {
+      id: 1,
+      isu: "Transformasi Digital UMKM",
+      kategori: "Ekonomi",
+      status: "Trending",
+    },
+    {
+      id: 2,
+      isu: "Pembangunan IKN Fase Lanjutan",
+      kategori: "Infrastruktur",
+      status: "Hot",
+    },
+    {
+      id: 3,
+      isu: "Kebijakan Energi Baru Terbarukan",
+      kategori: "Lingkungan",
+      status: "Populer",
+    },
+    {
+      id: 4,
+      isu: "Stabilitas Harga Pangan Nasional",
+      kategori: "Ekonomi",
+      status: "Hot",
+    },
+    {
+      id: 5,
+      isu: "Pengembangan Talenta AI Lokal",
+      kategori: "Teknologi",
+      status: "Trending",
+    },
+    {
+      id: 6,
+      isu: "Reformasi Sistem Kesehatan",
+      kategori: "Kesehatan",
+      status: "Populer",
+    },
+    {
+      id: 7,
+      isu: "Peningkatan Kualitas Pendidikan Vokasi",
+      kategori: "Edukasi",
+      status: "Populer",
+    },
+    {
+      id: 8,
+      isu: "Isu Keamanan Siber Nasional",
+      kategori: "Teknologi",
+      status: "Hot",
+    },
+    {
+      id: 9,
+      isu: "Subsidi Transportasi Publik",
+      kategori: "Transportasi",
+      status: "Trending",
+    },
+    {
+      id: 10,
+      isu: "Pelestarian Budaya di Era Digital",
+      kategori: "Sosial",
+      status: "Populer",
+    },
   ];
 
   return (
@@ -22,7 +83,9 @@ export default function FiturXyz() {
             <span className="text-4xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-500">
               Fitur Xyz
             </span>
-            <span className="text-sm font-medium text-slate-500 mt-1">Laporan Tren Mingguan</span>
+            <span className="text-sm font-medium text-slate-500 mt-1">
+              Laporan Tren Mingguan
+            </span>
           </div>
         }
         breadcrumb={["Dashboard", "Order List"]}
@@ -38,25 +101,68 @@ export default function FiturXyz() {
         </div>
       </div>
 
+      <Button variant="outline">Batal</Button>
+      <Button variant="ghost">Batal</Button>
+      <Button variant="destructive">Batal</Button>
+
+      <Card className="mt-4 w-[380px]">
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <CardTitle>Belajar shadcn/ui</CardTitle>
+            <Badge variant="secondary">Baru</Badge>
+          </div>
+          <CardDescription>
+            Contoh penggunaan komponen shadcn/ui di React
+          </CardDescription>
+        </CardHeader>
+
+        <CardContent>
+          <p className="text-sm text-muted-foreground">
+            Komponen ini dibuat di branch <strong>setup-shadcn</strong>
+            lalu di-merge ke main.
+          </p>
+        </CardContent>
+
+        <CardFooter className="flex gap-2">
+          <Button>Simpan</Button>
+          <Button variant="outline">Batal</Button>
+        </CardFooter>
+      </Card>
+
       {/* --- Card Container --- */}
       <div className="mt-6 bg-white/80 backdrop-blur-md rounded-2xl shadow-xl shadow-blue-900/5 border border-white overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-separate border-spacing-0">
             <thead>
               <tr>
-                <th className="px-6 py-5 bg-slate-50/50 text-xs font-bold uppercase tracking-wider text-slate-500 border-b border-slate-100">Rank</th>
-                <th className="px-6 py-5 bg-slate-50/50 text-xs font-bold uppercase tracking-wider text-slate-500 border-b border-slate-100">Topik Isu</th>
-                <th className="px-6 py-5 bg-slate-50/50 text-xs font-bold uppercase tracking-wider text-slate-500 border-b border-slate-100 text-center">Kategori</th>
-                <th className="px-6 py-5 bg-slate-50/50 text-xs font-bold uppercase tracking-wider text-slate-500 border-b border-slate-100 text-right">Status</th>
+                <th className="px-6 py-5 bg-slate-50/50 text-xs font-bold uppercase tracking-wider text-slate-500 border-b border-slate-100">
+                  Rank
+                </th>
+                <th className="px-6 py-5 bg-slate-50/50 text-xs font-bold uppercase tracking-wider text-slate-500 border-b border-slate-100">
+                  Topik Isu
+                </th>
+                <th className="px-6 py-5 bg-slate-50/50 text-xs font-bold uppercase tracking-wider text-slate-500 border-b border-slate-100 text-center">
+                  Kategori
+                </th>
+                <th className="px-6 py-5 bg-slate-50/50 text-xs font-bold uppercase tracking-wider text-slate-500 border-b border-slate-100 text-right">
+                  Status
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50">
               {hotIssues.map((item, index) => (
-                <tr key={item.id} className="group hover:bg-blue-50/30 transition-all duration-200">
+                <tr
+                  key={item.id}
+                  className="group hover:bg-blue-50/30 transition-all duration-200"
+                >
                   <td className="px-6 py-4">
-                    <span className={`flex items-center justify-center w-8 h-8 rounded-lg text-sm font-bold ${
-                      index < 3 ? 'bg-blue-600 text-white shadow-lg shadow-blue-200' : 'bg-slate-100 text-slate-500'
-                    }`}>
+                    <span
+                      className={`flex items-center justify-center w-8 h-8 rounded-lg text-sm font-bold ${
+                        index < 3
+                          ? "bg-blue-600 text-white shadow-lg shadow-blue-200"
+                          : "bg-slate-100 text-slate-500"
+                      }`}
+                    >
                       {index + 1}
                     </span>
                   </td>
@@ -71,18 +177,24 @@ export default function FiturXyz() {
                     </span>
                   </td>
                   <td className="px-6 py-4 text-right">
-                    <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ring-1 ring-inset ${
-                      item.status === 'Hot' 
-                        ? 'bg-red-50 text-red-600 ring-red-500/20' : 
-                      item.status === 'Trending' 
-                        ? 'bg-blue-50 text-blue-600 ring-blue-500/20' : 
-                          'bg-emerald-50 text-emerald-600 ring-emerald-500/20'
-                    }`}>
-                      <span className={`w-1.5 h-1.5 rounded-full mr-2 animate-pulse ${
-                        item.status === 'Hot' ? 'bg-red-500' : 
-                        item.status === 'Trending' ? 'bg-blue-500' : 
-                        'bg-emerald-500'
-                      }`}></span>
+                    <span
+                      className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ring-1 ring-inset ${
+                        item.status === "Hot"
+                          ? "bg-red-50 text-red-600 ring-red-500/20"
+                          : item.status === "Trending"
+                            ? "bg-blue-50 text-blue-600 ring-blue-500/20"
+                            : "bg-emerald-50 text-emerald-600 ring-emerald-500/20"
+                      }`}
+                    >
+                      <span
+                        className={`w-1.5 h-1.5 rounded-full mr-2 animate-pulse ${
+                          item.status === "Hot"
+                            ? "bg-red-500"
+                            : item.status === "Trending"
+                              ? "bg-blue-500"
+                              : "bg-emerald-500"
+                        }`}
+                      ></span>
                       {item.status}
                     </span>
                   </td>
@@ -91,7 +203,7 @@ export default function FiturXyz() {
             </tbody>
           </table>
         </div>
-        
+
         <div className="bg-slate-50/80 p-4 text-center border-t border-slate-100">
           <button className="text-sm font-bold text-blue-600 hover:text-blue-800 transition-all">
             Lihat Analisis Detail &rarr;
