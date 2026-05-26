@@ -7,9 +7,10 @@ import { FaPuzzlePiece } from "react-icons/fa";
 export default function Sidebar() {
   const menuClass = ({ isActive }) =>
     `flex cursor-pointer items-center rounded-xl p-4 space-x-2
-    ${isActive
-      ? "text-hijau bg-green-200 font-extrabold"
-      : "text-gray-600 hover:text-hijau hover:bg-green-200 hover:font-extrabold"
+    ${
+      isActive
+        ? "text-hijau bg-green-200 font-extrabold"
+        : "text-gray-600 hover:text-hijau hover:bg-green-200 hover:font-extrabold"
     }`;
 
   return (
@@ -67,6 +68,16 @@ export default function Sidebar() {
             >
               <FaPuzzlePiece className="mr-4 text-xl" />
               <span>Components</span>
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink
+              to="/fitur-xyz"
+              className="hover:text-hijau flex cursor-pointer items-center rounded-xl p-4 font-medium text-gray-600 hover:bg-green-200 hover:font-extrabold"
+            >
+              <FaPuzzlePiece className="mr-4 text-xl rotate-45" />
+              <span>Fitur XYZ</span>
             </NavLink>
           </li>
 
