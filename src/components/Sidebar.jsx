@@ -81,6 +81,16 @@ export default function Sidebar() {
             </NavLink>
           </li>
 
+          <li>
+            <NavLink
+              to="/notes"
+              className="hover:text-hijau flex cursor-pointer items-center rounded-xl p-4 font-medium text-gray-600 hover:bg-green-200 hover:font-extrabold"
+            >
+              <FaPuzzlePiece className="mr-4 text-xl rotate-45" />
+              <span>Notes</span>
+            </NavLink>
+          </li>
+
           {/* ===================== */}
           {/* ERROR MENU */}
           {/* ===================== */}

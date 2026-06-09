@@ -5,6 +5,8 @@ import React from "react";
 import { Suspense } from "react";
 import Loading from "./components/Loading";
 import Components from "./pages/Components";
+import Notes from "./pages/Notes";
+
 
 function App() {
   const Dashboard = React.lazy(() => import("./pages/Dashboard"))
@@ -42,6 +44,7 @@ function App() {
         <Route path="/components" element={<Components />} />
         
         <Route path="/fitur-xyz" element={<FiturXyz />} />
+        <Route path="/notes" element={<Notes />} />
       </Route>
 
       <Route element={<AuthLayout/>}>
