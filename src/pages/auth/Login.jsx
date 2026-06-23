@@ -1,12 +1,15 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { MdOutlineError } from "react-icons/md";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { supabase } from "../../lib/supabaseClient";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function Login() {
   /* navigate, state & handleChange*/
   const navigate = useNavigate();
+  const location = useLocation();
+  const { isSupabaseConfigured } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [dataForm, setDataForm] = useState({
@@ -27,33 +30,27 @@ export default function Login() {
     e.preventDefault();
 
     setLoading(true);
-    setError(false);
+    setError("");
 
-    axios
-      .post("https://dummyjson.com/user/login", {
-        username: dataForm.email,
-        password: dataForm.password,
-      })
-      .then((response) => {
-        // Jika status bukan 200, tampilkan pesan error
-        if (response.status !== 200) {
-          setError(response.data.message);
-          return;
-        }
+    if (!isSupabaseConfigured || !supabase) {
+      setError("Supabase belum dikonfigurasi. Isi file .env terlebih dahulu.");
+      setLoading(false);
+      return;
+    }
 
-        // Redirect ke dashboard jika login sukses
-        navigate("/");
-      })
-      .catch((err) => {
-        if (err.response) {
-          setError(err.response.data.message || "An error occurred");
-        } else {
-          setError(err.message || "An unknown error occurred");
-        }
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    const { error: loginError } = await supabase.auth.signInWithPassword({
+      email: dataForm.email,
+      password: dataForm.password,
+    });
+
+    if (loginError) {
+      setError(loginError.message);
+      setLoading(false);
+      return;
+    }
+
+    navigate(location.state?.from?.pathname || "/");
+    setLoading(false);
   };
 
   /* error & loading status */
@@ -74,7 +71,7 @@ export default function Login() {
   return (
     <div>
       <h2 className="text-2xl font-semibold text-gray-700 mb-6 text-center">
-        Welcome Back 👋
+        Welcome Back ðŸ‘‹
       </h2>
 
         {errorInfo}
@@ -112,12 +109,20 @@ export default function Login() {
         </div>
         <button
           type="submit"
+          disabled={loading}
           className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4
                         rounded-lg transition duration-300"
         >
           Login
         </button>
       </form>
+
+      <Link
+        to="/register"
+        className="block w-full mt-4 text-center bg-white border border-green-500 text-green-600 hover:bg-green-50 font-semibold py-2 px-4 rounded-lg transition duration-300"
+      >
+        Create New Account
+      </Link>
     </div>
   );
 }

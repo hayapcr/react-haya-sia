@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { FaShoppingCart, FaTruck, FaBan, FaDollarSign } from "react-icons/fa";
 import PageHeader from "../components/PageHeader";
+import { useAuth } from "../hooks/useAuth";
 
 export default function Dashboard() {
+  const { profile, role } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [modalData, setModalData] = useState("");
+  const displayName = profile?.full_name || profile?.email || "User";
 
   return (
     <div>
@@ -27,10 +30,10 @@ export default function Dashboard() {
 
         <div className="relative z-10">
           <h2 className="text-4xl font-black mb-2 tracking-tight">
-            Welcome Back, <span className="text-emerald-100">Haya</span> 👋
+            Welcome Back, <span className="text-emerald-100">{displayName}</span> 👋
           </h2>
           <p className="text-lg opacity-90 font-medium max-w-md leading-relaxed text-emerald-50">
-            Semoga harimu menyenangkan! Yuk cek aktivitas dan performa bisnismu hari ini 🚀
+            Role: {role}. Tier: {profile?.tier || "Guest"}. Total poin: {profile?.total_points || 0}.
           </p>
 
           <div className="flex gap-3 mt-6">

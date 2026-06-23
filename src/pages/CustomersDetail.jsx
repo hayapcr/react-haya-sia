@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Customers from "../data/Customers.json";
+import { customersAPI } from "../services/supabaseDataAPI";
 
 export default function CustomerDetail() {
   const { id } = useParams();
@@ -9,16 +9,14 @@ export default function CustomerDetail() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const selectedCustomer = customers.find(
-      (item) => item.customerId === id
-    );
-
-    if (!selectedCustomer) {
-      setError("Customer not found");
-      return;
-    }
-
-    setCustomer(selectedCustomer);
+    customersAPI
+      .fetchCustomerById(id)
+      .then((data) => {
+        setCustomer(data);
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
   }, [id]);
 
   if (error)
@@ -34,15 +32,15 @@ export default function CustomerDetail() {
         {/* HEADER */}
         <div className="bg-gradient-to-r from-emerald-500 to-green-400 p-8 text-white">
           <div className="w-24 h-24 rounded-full bg-white/20 flex items-center justify-center text-4xl font-black mb-4">
-            {customer.customerName.charAt(0)}
+            {customer.name.charAt(0)}
           </div>
 
           <h1 className="text-3xl font-black">
-            {customer.customerName}
+            {customer.name}
           </h1>
 
           <p className="text-white/80 mt-2">
-            Customer ID : {customer.customerId}
+            Customer ID : {customer.customer_id || String(customer.id).slice(0, 8)}
           </p>
         </div>
 
@@ -56,7 +54,7 @@ export default function CustomerDetail() {
             </p>
 
             <h3 className="text-lg font-bold text-gray-800">
-              {customer.email}
+              {customer.email || "-"}
             </h3>
           </div>
 
@@ -67,7 +65,7 @@ export default function CustomerDetail() {
             </p>
 
             <h3 className="text-lg font-bold text-gray-800">
-              {customer.phone}
+              {customer.phone || "-"}
             </h3>
           </div>
 
@@ -84,6 +82,8 @@ export default function CustomerDetail() {
                   ? "bg-gradient-to-r from-yellow-400 to-yellow-600 text-white"
                   : customer.loyalty === "Silver"
                   ? "bg-gradient-to-r from-gray-300 to-gray-500 text-white"
+                  : customer.loyalty === "Platinum"
+                  ? "bg-gradient-to-r from-blue-400 to-blue-600 text-white"
                   : "bg-gradient-to-r from-orange-400 to-orange-600 text-white"
               }`}
             >

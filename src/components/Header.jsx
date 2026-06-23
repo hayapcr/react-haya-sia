@@ -1,12 +1,22 @@
 import { FaBell, FaSearch } from "react-icons/fa";
 import { FcAreaChart } from "react-icons/fc";
 import { SlSettings } from "react-icons/sl";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
 
 export default function Header() {
+    const navigate = useNavigate();
+    const { profile, signOut } = useAuth();
 
     const now = new Date();
     const time = now.toLocaleTimeString();
     const date = now.toLocaleDateString();
+    const displayName = profile?.full_name || profile?.email || "User";
+
+    const handleSignOut = async () => {
+        await signOut();
+        navigate("/login");
+    };
 
     return (
         <div className="flex justify-between items-center p-4">
@@ -49,12 +59,15 @@ export default function Header() {
                 {/* Profile */}
                 <div className="flex items-center space-x-3 border-l pl-4 border-gray-300">
                     <span>
-                        Hello, <b>Haya Nur Rizky</b>
+                        Hello, <b>{displayName}</b>
                     </span>
                     <img
                         className="w-10 h-10 rounded-full"
                         src="https://randomuser.me/api/portraits/women/32.jpg"
                     />
+                    <button onClick={handleSignOut} className="text-xs font-bold text-red-500 hover:text-red-700">
+                        Logout
+                    </button>
                 </div>
 
             </div>

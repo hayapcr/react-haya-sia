@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import Loading from "./components/Loading";
 import Components from "./pages/Components";
 import Notes from "./pages/Notes";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
   return (
     <Suspense fallback={<Loading />}>
     <Routes>
+      <Route element={<ProtectedRoute allowedRoles={["admin", "customer"]} />}>
       <Route element={<MainLayout />}>
         <Route path="/" element={<Dashboard />} />
         <Route path="/orders" element={<Orders />} />
@@ -45,6 +47,7 @@ function App() {
         
         <Route path="/fitur-xyz" element={<FiturXyz />} />
         <Route path="/notes" element={<Notes />} />
+      </Route>
       </Route>
 
       <Route element={<AuthLayout/>}>
